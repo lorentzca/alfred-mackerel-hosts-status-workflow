@@ -1,5 +1,9 @@
 # Alfred Mackerel hosts Status Workflow
 
+Search Mackerel hosts and show host's status.
+
+![](./image.png)
+
 ## Install
 
 Download and double-click.
@@ -10,7 +14,7 @@ Download and double-click.
 
 Register Mackcerel API Key.
 
-- save to `apikey` file in workflow directory
+- save to `apikey` file in workflow's data folder
 
 ```
 mackerel api <XXXX>
