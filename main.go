@@ -10,7 +10,7 @@ import (
 )
 
 type Items struct {
-	Items []Item `json:"items"`
+	Item []Item `json:"items"`
 }
 
 type Item struct {
@@ -30,11 +30,11 @@ func main() {
 	flag.Parse()
 
 	client := mkr.NewClient(*apikey)
+
+	org, _ := client.GetOrg()
 	hosts, _ := client.FindHosts(&mkr.FindHostsParam{
 		Statuses: []string{"working", "standby", "maintenance", "poweroff"},
 	})
-
-	org, _ := client.GetOrg()
 
 	var items []Item
 	for _, v := range hosts {
@@ -44,6 +44,6 @@ func main() {
 		}
 	}
 
-	jsonBytes, _ := json.Marshal(Items{Items: items})
+	jsonBytes, _ := json.Marshal(Items{Item: items})
 	fmt.Println(string(jsonBytes))
 }
