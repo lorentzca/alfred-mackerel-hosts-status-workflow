@@ -34,12 +34,18 @@ func parseFlag() (string, string) {
 	return *apikey, *hostname
 }
 
+func getOrg(a string) string {
+	client := mkr.NewClient(a)
+	org, _ := client.GetOrg()
+
+	return org.Name
+}
+
 func main() {
 	a, h := parseFlag()
+	org := getOrg(a)
 
 	client := mkr.NewClient(a)
-
-	org, _ := client.GetOrg()
 	hosts, _ := client.FindHosts(&mkr.FindHostsParam{
 		Statuses: []string{"working", "standby", "maintenance", "poweroff"},
 	})
@@ -47,7 +53,7 @@ func main() {
 	var items []Item
 	for _, v := range hosts {
 		if strings.Contains(v.Name, h) {
-			url := "https://mackerel.io/orgs/" + org.Name + "/hosts/" + v.ID
+			url := "https://mackerel.io/orgs/" + org + "/hosts/" + v.ID
 			items = append(items, Item{Title: v.Name, Subtitle: v.Status, Arg: url, Icon: icon{Path: v.Status + ".png"}})
 		}
 	}
