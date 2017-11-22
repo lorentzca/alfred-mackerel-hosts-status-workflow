@@ -71,12 +71,17 @@ func collectItem(hosts []*mkr.Host, h string, org string) []Item {
 	return items
 }
 
+func itemsMarshal(items []Item) string {
+	jsonBytes, _ := json.Marshal(Items{Item: items})
+
+	return string(jsonBytes)
+}
+
 func main() {
 	a, h := parseFlag()
 	org := getOrg(a)
 	hosts := getHosts(a)
-	items := collectItem(hosts, h, org)
-
-	jsonBytes, _ := json.Marshal(Items{Item: items})
-	fmt.Println(string(jsonBytes))
+	collection := collectItem(hosts, h, org)
+	items := itemsMarshal(collection)
+	fmt.Println(items)
 }
