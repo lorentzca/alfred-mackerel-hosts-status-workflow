@@ -76,12 +76,15 @@ func itemsMarshal(items []Item) string {
 
 	return string(jsonBytes)
 }
-
-func main() {
+func Do() {
 	a, h := parseFlag()
 	org := getOrg(a)
 	hosts := getHosts(a)
 	collection := collectItem(hosts, h, org)
 	items := itemsMarshal(collection)
 	fmt.Println(items)
+}
+
+func main() {
+	Do()
 }
