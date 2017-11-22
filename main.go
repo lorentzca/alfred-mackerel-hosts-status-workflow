@@ -41,14 +41,23 @@ func getOrg(a string) string {
 	return org.Name
 }
 
+func getHosts(a string) []*mkr.Host {
+	client := mkr.NewClient(a)
+	hosts, _ := client.FindHosts(&mkr.FindHostsParam{
+		Statuses: []string{
+			"working",
+			"standby",
+			"maintenance",
+			"poweroff"},
+	})
+
+	return hosts
+}
+
 func main() {
 	a, h := parseFlag()
 	org := getOrg(a)
-
-	client := mkr.NewClient(a)
-	hosts, _ := client.FindHosts(&mkr.FindHostsParam{
-		Statuses: []string{"working", "standby", "maintenance", "poweroff"},
-	})
+	hosts := getHosts(a)
 
 	var items []Item
 	for _, v := range hosts {
