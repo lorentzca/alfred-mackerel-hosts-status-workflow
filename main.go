@@ -54,18 +54,28 @@ func getHosts(a string) []*mkr.Host {
 	return hosts
 }
 
+func collectItem(hosts []*mkr.Host, h string, org string) []Item {
+	var items []Item
+	for _, v := range hosts {
+		if strings.Contains(v.Name, h) {
+			url := "https://mackerel.io/orgs/" + org +
+				"/hosts/" + v.ID
+			items = append(items, Item{
+				Title:    v.Name,
+				Subtitle: v.Status,
+				Arg:      url,
+				Icon:     icon{Path: v.Status + ".png"}})
+		}
+	}
+
+	return items
+}
+
 func main() {
 	a, h := parseFlag()
 	org := getOrg(a)
 	hosts := getHosts(a)
-
-	var items []Item
-	for _, v := range hosts {
-		if strings.Contains(v.Name, h) {
-			url := "https://mackerel.io/orgs/" + org + "/hosts/" + v.ID
-			items = append(items, Item{Title: v.Name, Subtitle: v.Status, Arg: url, Icon: icon{Path: v.Status + ".png"}})
-		}
-	}
+	items := collectItem(hosts, h, org)
 
 	jsonBytes, _ := json.Marshal(Items{Item: items})
 	fmt.Println(string(jsonBytes))
