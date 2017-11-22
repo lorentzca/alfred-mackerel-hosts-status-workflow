@@ -29,8 +29,8 @@ func parseFlag() (string, string) {
 		"h", "example", "Hostname")
 	var apikey *string = flag.String(
 		"i", "XXXXXXXX", "Mackerel API Key")
-
 	flag.Parse()
+
 	return *apikey, *hostname
 }
 
@@ -78,9 +78,12 @@ func itemsMarshal(items []Item) string {
 }
 func Do() {
 	a, h := parseFlag()
+
 	org := getOrg(a)
 	hosts := getHosts(a)
+
 	collection := collectItem(hosts, h, org)
+
 	items := itemsMarshal(collection)
 	fmt.Println(items)
 }
