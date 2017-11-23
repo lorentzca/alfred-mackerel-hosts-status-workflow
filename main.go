@@ -76,6 +76,7 @@ func itemsMarshal(items []Item) string {
 
 	return string(jsonBytes)
 }
+
 func Do() {
 	a, h := parseFlag()
 
