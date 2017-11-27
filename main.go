@@ -68,6 +68,11 @@ func collectItem(hosts []*mkr.Host, h string, org string) []Item {
 		}
 	}
 
+	if items == nil {
+		items = append(items, Item{
+			Title: "No result"})
+	}
+
 	return items
 }
 
