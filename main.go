@@ -68,15 +68,15 @@ func collectItem(hosts []*mkr.Host, h string, org string) []Item {
 		}
 	}
 
-	return items
-}
-
-func itemsMarshal(items []Item) string {
 	if items == nil {
 		items = append(items, Item{
 			Title: "No result"})
 	}
 
+	return items
+}
+
+func itemsMarshal(items []Item) string {
 	jsonBytes, _ := json.Marshal(Items{Item: items})
 
 	return string(jsonBytes)
