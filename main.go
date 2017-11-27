@@ -72,6 +72,11 @@ func collectItem(hosts []*mkr.Host, h string, org string) []Item {
 }
 
 func itemsMarshal(items []Item) string {
+	if items == nil {
+		items = append(items, Item{
+			Title: "No result"})
+	}
+
 	jsonBytes, _ := json.Marshal(Items{Item: items})
 
 	return string(jsonBytes)
