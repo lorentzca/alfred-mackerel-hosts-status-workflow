@@ -14,7 +14,7 @@ Download and double-click.
 
 Register Mackcerel API Key.
 
-- save to `apikey` file in workflow's data folder
+- `apikey` saved in your `Keychain Access.app`
 
 ```
 mackerel api <XXXX>
